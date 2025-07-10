@@ -1,0 +1,92 @@
+.header {
+  position: relative;
+  min-height: 848px;
+  background-image: url(/public/images/header/header.jpg);
+  object-fit: contain;
+  background-repeat: no-repeat;
+  padding: 230px 135px 0;
+
+  &__decoration {
+    position: absolute;
+    top: 137px;
+    right: 179px;
+  }
+}
+
+.navPanel {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1440px;
+  min-height: 40px;
+  padding: 0 135px;
+
+  &__left {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 23px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    color: #fff;
+  }
+
+  &__right-menu {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    color: #ffffff;
+    margin-left: 31px;
+    white-space: nowrap;
+  }
+  &__button {
+    min-width: 132px;
+    height: 40px;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+}
+
+.tablet {
+  max-width: 555px;
+
+  &__logo {
+    border-radius: 15%;
+    width: 90px;
+    height: 90px;
+    background-color: #ffffff;
+    padding: 5.62px;
+    margin-bottom: 33px;
+  }
+
+  &__logo-img {
+    width: 78.75px;
+    height: 78.75px;
+  }
+
+  &__text {
+    font-size: 35px;
+    font-weight: 300;
+    line-height: 50px;
+    letter-spacing: 1px;
+    color: #fff;
+    margin: 10px 0 37px;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}

@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: NunitoSans, sans-serif;
+  background-color: #e5e5e5;
+}
+
+.boldText {
+  font-weight: 800;
+}
+
+.button {
+  min-width: 167px;
+  height: 50px;
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  border: none;
+  box-shadow: 0 6px 12px #282b3114;
+
+  &__orange {
+    background-image: url(/public/images/button/Base.jpg);
+    color: #fff;
+  }
+
+  &__white {
+    background: #f8f9fa;
+    color: #282b31;
+    font-weight: 600;
+  }
+}
+
+.outer {
+  max-width: auto;
+}
+

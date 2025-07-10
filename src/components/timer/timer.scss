@@ -1,0 +1,74 @@
+.track {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  width: 500px;
+
+  &__name-text {
+    text-align: left;
+    font-size: 20px;
+    font-weight: 700;
+    color: #5586f2;
+    width: 129px;
+    text-wrap: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+
+  &__time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 117px;
+    height: 50px;
+    border-radius: 6px;
+    color: #676c75;
+    margin: 0 22px 0 39px;
+  }
+
+  &__active {
+    background-color: #ff487626;
+  }
+
+  &__passive {
+    background: #e7e8ea;
+  }
+
+  &__button {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    border: none;
+    background-color: none;
+  }
+}
+
+.button-control {
+  width: 13.97002124786377;
+  height: 18;
+}
+
+.delete {
+  width: 50px;
+  height: 50px;
+  background-image: url(/public/images/control_buttons/deleteBack.svg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control_button {
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.play_button {
+  border-radius: 50%;
+  background-image: url(/public/images/control_buttons/playButton.png);
+}
+
+.pause_button {
+  border-radius: 50%;
+  background-image: url(/public/images/control_buttons/pauseButton.png);
+}
