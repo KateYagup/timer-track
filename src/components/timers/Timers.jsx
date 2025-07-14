@@ -4,22 +4,30 @@ import './timers.scss';
 import moment from 'moment';
 
 const Timers = () => {
-  const [timers, setTimers] = useState([]);
+  const [timers, setTimers] = useState(()=>{
+    const saved = localStorage.getItem('timers');
+    return saved? JSON.parse(saved) :[]
+  });
   const [timerInput, setTimerInput] = useState('');
-  const [numberOfTimer, setNumerOfTimer] = useState(1);
 
   useEffect(() => {
     const objTimers = localStorage.getItem('timers');
     setTimers(JSON.parse(objTimers));
-    setNumerOfTimer(localStorage.getItem('numberOfTimer'));
+    console.log(JSON.parse(objTimers));
+    // return()=>{
+    //   localStorage.setItem('timers', JSON.stringify(timers));
+    // }
+
   }, []);
 
   useEffect(() => {
     localStorage.setItem('timers', JSON.stringify(timers));
-    localStorage.setItem('numberOfTimer', numberOfTimer);
-  }, [timers, numberOfTimer]);
+    return () => {
+      localStorage.setItem('timers', JSON.stringify(timers));
+    };
+  }, [timers]);
 
-  const createNewTimer = e => {
+  const createNewTimer = () => {
     let newTimer;
     if (timerInput) {
       newTimer = {
@@ -27,7 +35,7 @@ const Timers = () => {
         timerName: timerInput,
         startTime: 0,
         endTime: 0,
-        pauseTimer: true,
+        pauseTimer: false,
       };
     } else {
       newTimer = {
@@ -35,9 +43,8 @@ const Timers = () => {
         endTime: 0,
         timerName: `From ${moment().format('HH:mm')}`,
         startTime: 0,
-        pauseTimer: true,
+        pauseTimer: false,
       };
-      setNumerOfTimer(Number(numberOfTimer) + 1);
     }
 
     setTimers([...timers, newTimer]);
@@ -60,6 +67,7 @@ const Timers = () => {
       ...timers.map(timer => (id === timer.id ? { ...timer, endTime: moment() } : { ...timer })),
     ]);
   };
+
   const handleNewStartTime = id => {
     console.log('Выполняется прибавка прошедшего времени handleNewStartTime ' + id);
     setTimers([
@@ -67,7 +75,7 @@ const Timers = () => {
         id === timer.id
           ? {
               ...timer,
-              startTime: timer.startTime + moment().diff(moment(timer.endTime, 'seconds')),
+              startTime: timer.startTime ,
             }
           : { ...timer },
       ),
@@ -88,10 +96,10 @@ const Timers = () => {
     ]);
   };
 
-  const handleCurrentTime = (id, currentTime, offTime) => {
+  const handleStopTime = (id, stopTime) => {
     setTimers([
-      ...timers.map(timer =>
-        id === timer.id ? { ...timer, startTime: currentTime } : { ...timer },
+      ...timers.map((timer) =>
+        id === timer.id ? { ...timer, endTime: stopTime } : { ...timer }
       ),
     ]);
   };
@@ -103,8 +111,9 @@ const Timers = () => {
           <span className="whyUse__header-bold">Why</span> do we use it?
         </p>
         <p className="whyUse__text">
-          This sounded nonsense to Alice, so she said nothing, but set off at once toward the Red
-          Queen. To her surprise, she lost sight of her in a moment.
+          This sounded nonsense to Alice, so she said nothing, but set off at
+          once toward the Red Queen. To her surprise, she lost sight of her in a
+          moment.
         </p>
       </div>
       <div className="createTimers">
@@ -113,7 +122,7 @@ const Timers = () => {
           type="text"
           placeholder="Timer name"
           value={timerInput}
-          onChange={e => setTimerInput(e.target.value)}
+          onChange={(e) => setTimerInput(e.target.value)}
           onKeyDown={handleKeyPress}
         />
         <button className="button button__orange" onClick={createNewTimer}>
@@ -122,16 +131,16 @@ const Timers = () => {
       </div>
       <div className="separateLine"></div>
       <ul className="timers-group">
-        {timers.map(timer => (
+        {timers.map((timer) => (
           <Timer
             key={timer.id}
             {...timer}
             removeTimer={removeTimer}
             handleToggle={handleToggle}
             handleStartTime={handleStartTime}
-            handleCurrentTime={handleCurrentTime}
             handleEndTime={handleEndTime}
             handleNewStartTime={handleNewStartTime}
+            handleStopTime={handleStopTime}
           />
         ))}
       </ul>
