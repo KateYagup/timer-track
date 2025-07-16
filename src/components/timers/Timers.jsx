@@ -13,18 +13,27 @@ const Timers = () => {
   useEffect(() => {
     const objTimers = localStorage.getItem('timers');
     setTimers(JSON.parse(objTimers));
-    console.log(JSON.parse(objTimers));
-    // return()=>{
-    //   localStorage.setItem('timers', JSON.stringify(timers));
-    // }
+    return() =>{
+      localStorage.setItem('timers', JSON.stringify(timers));
+      const timersNew = timers.map((timer) => (timer.pauseTimer? { ...timer, endTime: 10 } :{...timer}));
 
+      console.log('timersNew');
+      console.log(timersNew);
+      // localStorage.setItem('timers', JSON.stringify(timers));
+    }
   }, []);
 
   useEffect(() => {
+    // console.log("Запись в локал сторидж");
+    // const timersNew = timers.map(timer=> {
+    //   timer.pauseTimer? timer : { ...timer, endTime : '10'}
+    //   }
+    // )
+    // const timersNew = timers.map((timer) => (timer.pauseTimer? { ...timer, endTime: 10 } :{...timer}));
+
+    // console.log('timersNew');
+    // console.log(timersNew);
     localStorage.setItem('timers', JSON.stringify(timers));
-    return () => {
-      localStorage.setItem('timers', JSON.stringify(timers));
-    };
   }, [timers]);
 
   const createNewTimer = () => {
@@ -48,6 +57,9 @@ const Timers = () => {
     }
 
     setTimers([...timers, newTimer]);
+  
+    // console.log("Добавили новый трек");
+    // console.log(timers);
     setTimerInput('');
   };
 
@@ -58,7 +70,9 @@ const Timers = () => {
   };
 
   const removeTimer = id => {
+    console.log("Удаление "  + id);
     setTimers([...timers.filter(timers => timers.id !== id)]);
+    console.log(timers);
   };
 
   const handleEndTime = id => {
@@ -69,15 +83,16 @@ const Timers = () => {
   };
 
   const handleNewStartTime = id => {
-    console.log('Выполняется прибавка прошедшего времени handleNewStartTime ' + id);
+    // console.log('Выполняется прибавка прошедшего времени handleNewStartTime ' + id);
     setTimers([
-      ...timers.map(timer =>
+      ...timers.map((timer) =>
         id === timer.id
           ? {
               ...timer,
+              // startTime: timer.startTime + moment().diff(timer.endTime, 'seconds'),
               startTime: timer.startTime ,
             }
-          : { ...timer },
+          : { ...timer }
       ),
     ]);
   };
@@ -125,7 +140,11 @@ const Timers = () => {
           onChange={(e) => setTimerInput(e.target.value)}
           onKeyDown={handleKeyPress}
         />
-        <button className="button button__orange" onClick={createNewTimer}>
+        <button
+          className="button button__orange"
+          style={{ width: '165px' }}
+          onClick={createNewTimer}
+        >
           Create Timer
         </button>
       </div>

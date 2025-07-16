@@ -1,23 +1,22 @@
 .track-zone {
   display: flex;
-  justify-content: center;
   align-items: center;
   min-height: 841px;
-  padding: 122px 113px 113px;
+  padding: 0 113px 113px;
   flex-direction: column;
-  gap: 18px;
 }
 
 .timers-group {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 27px;
   margin-right: 24px;
 }
 
 .createTimers {
   display: flex;
   justify-content: center;
+  margin-top: 86px;
 }
 
 .inputName {
@@ -37,10 +36,12 @@
   height: 1px;
   background-color: #e7e8ea;
   margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 13px;
 }
 
 .whyUse {
+margin-top: 153px;
+
   &__header {
     font-weight: 300;
     font-size: 35px;
@@ -49,6 +50,7 @@
     text-align: center;
     color: #676c75;
     margin: 0;
+    margin-top: -35px;
   }
 
   &__header-bold {

@@ -20,7 +20,6 @@ const Timer = ({
   useEffect(() => {
     let intervalId;
     if (pauseTimer) {
-      // handleStartTime(id, startTime);
       handleStartTime(id, currentTime);
       // handleEndTime(id); // устанавливаем суммарное количество секунд
       return;
@@ -28,13 +27,11 @@ const Timer = ({
     if (!pauseTimer) {
       intervalId = setInterval(() => {
         setCurrentTime((t) => t + 1);
+        // handleStopTime(id, moment().format('HH:mm:ss'));
       }, 1000);
     }
     return () => {
       clearInterval(intervalId);
-      // if(!pauseTimer){
-      //   handleStopTime(id, moment().format('HH:mm:ss'));
-      // }
     };
   }, [pauseTimer]); // useCallBack родительсий элемент
 
@@ -48,24 +45,6 @@ const Timer = ({
 
     setTimeFormated(`${hoursString} : ${minutesString} : ${secondsString}`);
   }, [currentTime]);
-
-  useEffect(()=>{
-    if (!pauseTimer) {
-      console.log('Секунды');
-      console.log(moment(endTime).format('HH:mm:ss'));
-      console.log(moment().diff(endTime, 'seconds'));
-      // handleStartTime(id, currentTime + moment().diff(endTime, 'seconds'));
-      handleStartTime(id, startTime + 60);
-      // handleStartTime(id, startTime + moment().diff(endTime, 'seconds'));
-      return () => {
-        if (!pauseTimer) {
-          console.log('Размонтирование');
-          console.log(moment().format('HH:mm:ss'));
-          handleStopTime(id, moment().format('HH:mm:ss'));
-        }
-      };
-    }
-  }, [])
 
   useMemo(() => {
     handleStartTime(id, currentTime);
