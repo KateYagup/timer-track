@@ -1,44 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Timer from '../timer/Timer';
 import './timers.scss';
 import moment from 'moment';
 
 const Timers = () => {
-  const [timers, setTimers] = useState(()=>{
-    const saved = localStorage.getItem('timers');
-    return saved? JSON.parse(saved) :[]
-  });
+  // const [timers, setTimers] = useState(()=>{
+  //   const saved = localStorage.getItem('timers');
+  //   return saved? JSON.parse(saved) :[]
+  // });
+
+  const [timers, setTimers] = useState([]);
   const [timerInput, setTimerInput] = useState('');
 
-  useEffect(() => {
-    const objTimers = localStorage.getItem('timers');
-    setTimers(JSON.parse(objTimers));
-    console.log('Монтирование');
-    console.log(timers);
-    return() =>{
-      console.log('Размонтирование');
-      // localStorage.setItem('timers', JSON.stringify(timers));
-      // const timersNew = timers.map((timer) => (timer.pauseTimer? { ...timer, endTime: 10 } :{...timer}));
+  const timersRef = useRef(timers);
 
-      // console.log('timersNew');
-      // console.log(timersNew);
-      console.log(timers);
-      localStorage.setItem('timers', JSON.stringify(timers));
+  const onUnload = () =>
+    localStorage.setItem("timers", JSON.stringify(timersRef.current));
+
+  useEffect(() => {
+    timersRef.current = timers;
+  }, [timers]);
+
+  useEffect(() => {
+   const storedTimers = localStorage.getItem("timers");
+   if(storedTimers){
+    setTimers(JSON.parse(storedTimers));
+   }
+   window.addEventListener("beforeunload", onUnload);
+    return ()=> {
+      window.removeEventListener("beforeunload", onUnload);
     }
   }, []);
 
-  useEffect(() => {
-    // console.log("Запись в локал сторидж");
-    // const timersNew = timers.map(timer=> {
-    //   timer.pauseTimer? timer : { ...timer, endTime : '10'}
-    //   }
-    // )
-    // const timersNew = timers.map((timer) => (timer.pauseTimer? { ...timer, endTime: 10 } :{...timer}));
 
-    // console.log('timersNew');
-    // console.log(timersNew);
-    localStorage.setItem('timers', JSON.stringify(timers));
-  }, [timers]);
 
   const createNewTimer = () => {
     let newTimer;
@@ -61,8 +55,6 @@ const Timers = () => {
     }
 
     setTimers([...timers, newTimer]);
-    console.log('Создание нового таймера');
-    console.log(timers);
   
     // console.log("Добавили новый трек");
     // console.log(timers);
@@ -89,11 +81,13 @@ const Timers = () => {
   };
 
   const handleNewStartTime = id => {
+    // console.log('Выполняется прибавка прошедшего времени handleNewStartTime ' + id);
     setTimers([
       ...timers.map((timer) =>
         id === timer.id
           ? {
               ...timer,
+              // startTime: timer.startTime + moment().diff(timer.endTime, 'seconds'),
               startTime: timer.startTime ,
             }
           : { ...timer }

@@ -17,18 +17,32 @@ const Timer = ({
   const [currentTime, setCurrentTime] = useState(Number(startTime));
   const [timeFormated, setTimeFormated] = useState('');
 
+  useEffect(()=>{
+    if (!pauseTimer) {
+      const secondsPast = moment().diff(endTime, 'seconds');
+      console.log('Конечное время ' + endTime);
+      console.log('Текущее время ' + moment().format());
+      console.log('Прошло секунд ' + secondsPast);
+      console.log('Накопленные секунды ' + startTime);
+      setCurrentTime(startTime + secondsPast);
+      console.log(`Суммарное количество секунд ${startTime + secondsPast}`);
+      
+      return;
+    }
+  }, []);
+
   useEffect(() => {
     let intervalId;
     if (pauseTimer) {
       handleStartTime(id, currentTime);
+      handleStopTime(id, null);
       // handleEndTime(id); // устанавливаем суммарное количество секунд
       return;
-    }
-    if (!pauseTimer) {
+    } else if (!pauseTimer) {
       intervalId = setInterval(() => {
         setCurrentTime((t) => t + 1);
-        // handleStopTime(id, moment().format('HH:mm:ss'));
       }, 1000);
+      handleStopTime(id, moment().format());
     }
     return () => {
       clearInterval(intervalId);
