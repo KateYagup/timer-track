@@ -11,7 +11,10 @@ const HeaderTablet = () => {
           <a className="navPanel__right-menu">Video Tour</a>
           <a className="navPanel__right-menu">Reviews</a>
           <a className="navPanel__right-menu">Pricing</a>
-          <button className="button button__white   navPanel__button" style={{width: "132px"}}>
+          <button
+            className="button button__white   navPanel__button"
+            style={{ width: '132px' }}
+          >
             GET IT FREE
           </button>
         </div>
@@ -30,8 +33,13 @@ const HeaderTablet = () => {
             web and mobile apps
           </div>
           <div className="buttons">
-            <button className="button button__orange" style={{width: "167px"}}>Download Now</button>
-            <button className="button button__white" style={{ width: "144px" }}>
+            <button
+              className="button button__orange"
+              style={{ width: '167px' }}
+            >
+              Download Now
+            </button>
+            <button className="button button__white" style={{ width: '144px' }}>
               Watch Video
             </button>
           </div>

@@ -8,7 +8,11 @@ const Footer = () => {
       <div className="footer__author">
         <p className="created">
           Created with{' '}
-          <img className="heart" src="/public/images/icons/Heart Filled Icon.jpg" alt="" />
+          <img
+            className="heart"
+            src="/public/images/icons/Heart Filled Icon.jpg"
+            alt=""
+          />
           by <span className="sergey">Sergey Azovskiy</span>
         </p>
         <p className="year">© AppStarter, 2017</p>

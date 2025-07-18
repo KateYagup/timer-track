@@ -1,44 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Timer from '../timer/Timer';
 import './timers.scss';
 import moment from 'moment';
 
 const Timers = () => {
-  const [timers, setTimers] = useState(()=>{
-    const saved = localStorage.getItem('timers');
-    return saved? JSON.parse(saved) :[]
-  });
+  const [timers, setTimers] = useState([]);
   const [timerInput, setTimerInput] = useState('');
+  const timersRef = useRef(timers);
+
+  const onUnload = () =>
+    localStorage.setItem('timers', JSON.stringify(timersRef.current));
 
   useEffect(() => {
-    const objTimers = localStorage.getItem('timers');
-    setTimers(JSON.parse(objTimers));
-    console.log('Монтирование');
-    console.log(timers);
-    return() =>{
-      console.log('Размонтирование');
-      // localStorage.setItem('timers', JSON.stringify(timers));
-      // const timersNew = timers.map((timer) => (timer.pauseTimer? { ...timer, endTime: 10 } :{...timer}));
-
-      // console.log('timersNew');
-      // console.log(timersNew);
-      console.log(timers);
-      localStorage.setItem('timers', JSON.stringify(timers));
-    }
-  }, []);
-
-  useEffect(() => {
-    // console.log("Запись в локал сторидж");
-    // const timersNew = timers.map(timer=> {
-    //   timer.pauseTimer? timer : { ...timer, endTime : '10'}
-    //   }
-    // )
-    // const timersNew = timers.map((timer) => (timer.pauseTimer? { ...timer, endTime: 10 } :{...timer}));
-
-    // console.log('timersNew');
-    // console.log(timersNew);
-    localStorage.setItem('timers', JSON.stringify(timers));
+    timersRef.current = timers;
   }, [timers]);
+
+  useEffect(() => {
+    const storedTimers = localStorage.getItem('timers');
+    if (storedTimers) {
+      setTimers(JSON.parse(storedTimers));
+    }
+    window.addEventListener('beforeunload', onUnload);
+    return () => {
+      window.removeEventListener('beforeunload', onUnload);
+    };
+  }, []);
 
   const createNewTimer = () => {
     let newTimer;
@@ -61,57 +47,47 @@ const Timers = () => {
     }
 
     setTimers([...timers, newTimer]);
-    console.log('Создание нового таймера');
-    console.log(timers);
-  
-    // console.log("Добавили новый трек");
-    // console.log(timers);
     setTimerInput('');
   };
 
-  const handleKeyPress = e => {
+  const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       createNewTimer(e);
     }
   };
 
-  const removeTimer = id => {
-    console.log("Удаление "  + id);
-    setTimers([...timers.filter(timers => timers.id !== id)]);
-    console.log(timers);
+  const removeTimer = (id) => {
+    setTimers([...timers.filter((timers) => timers.id !== id)]);
   };
 
-  const handleEndTime = id => {
-    console.log('Выполнилась запись времени handleEndTime');
-    setTimers([
-      ...timers.map(timer => (id === timer.id ? { ...timer, endTime: moment() } : { ...timer })),
-    ]);
-  };
-
-  const handleNewStartTime = id => {
+  const handleNewStartTime = (id) => {
     setTimers([
       ...timers.map((timer) =>
         id === timer.id
           ? {
               ...timer,
-              startTime: timer.startTime ,
+              startTime: timer.startTime,
             }
           : { ...timer }
       ),
     ]);
   };
 
-  const handleToggle = id => {
+  const handleToggle = (id) => {
     setTimers([
-      ...timers.map(timer =>
-        id === timer.id ? { ...timer, pauseTimer: !timer.pauseTimer } : { ...timer },
+      ...timers.map((timer) =>
+        id === timer.id
+          ? { ...timer, pauseTimer: !timer.pauseTimer }
+          : { ...timer }
       ),
     ]);
   };
 
   const handleStartTime = (id, newTime) => {
     setTimers([
-      ...timers.map(timer => (id === timer.id ? { ...timer, startTime: newTime } : { ...timer })),
+      ...timers.map((timer) =>
+        id === timer.id ? { ...timer, startTime: newTime } : { ...timer }
+      ),
     ]);
   };
 
@@ -161,7 +137,6 @@ const Timers = () => {
             removeTimer={removeTimer}
             handleToggle={handleToggle}
             handleStartTime={handleStartTime}
-            handleEndTime={handleEndTime}
             handleNewStartTime={handleNewStartTime}
             handleStopTime={handleStopTime}
           />
