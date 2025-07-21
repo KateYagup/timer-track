@@ -1,6 +1,6 @@
 # Project Employees-App
 
-### [Site link](https://yagup-timer-track.netlify.app/)
+### [Site link](https://timer-tracker-yahup.netlify.app/)
 
 Devices support
 - [mobile/tablet/desktop]
