@@ -5,6 +5,7 @@
 body {
   font-family: NunitoSans, sans-serif;
   background-color: #e5e5e5;
+  margin: 0;
 }
 
 .boldText {
@@ -21,18 +22,15 @@ body {
   box-shadow: 0 6px 12px #282b3114;
   cursor: pointer;
 
-  &__orange {
+  &_orange {
     background-image: url(/public/images/button/Base.jpg);
     color: #fff;
   }
 
-  &__white {
+  &_white {
     background: #f8f9fa;
     color: #282b31;
     font-weight: 600;
   }
 }
 
-.outer {
-  max-width: auto;
-}

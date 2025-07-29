@@ -13,7 +13,7 @@ const Timer = ({
   handleStartTime,
   handleStopTime,
 }) => {
-  const [currentTime, setCurrentTime] = useState(Number(startTime));
+  const [currentTime, setCurrentTime] = useState(+startTime);
   const [timeFormated, setTimeFormated] = useState('');
 
   useEffect(() => {
@@ -28,7 +28,6 @@ const Timer = ({
     let intervalId;
     if (pauseTimer) {
       handleStartTime(id, currentTime);
-      handleStopTime(id, null);
       return;
     } else if (!pauseTimer) {
       intervalId = setInterval(() => {
@@ -42,14 +41,22 @@ const Timer = ({
   }, [pauseTimer]); // useCallBack родительсий элемент
 
   useEffect(() => {
-    const hours = Math.trunc(currentTime / 3600);
-    const minutes = Math.trunc((currentTime - hours * 3600) / 60);
-    const seconds = currentTime - hours * 3600 - minutes * 60;
-    const hoursString = hours >= 10 ? hours : `0${hours}`;
-    const minutesString = minutes >= 10 ? minutes : `0${minutes}`;
-    const secondsString = seconds >= 10 ? seconds : `0${seconds}`;
+    // const hours = Math.trunc(currentTime / 3600);
+    // const minutes = Math.trunc((currentTime - hours * 3600) / 60);
+    // const seconds = currentTime - hours * 3600 - minutes * 60;
+    // const hoursString = hours >= 10 ? hours : `0${hours}`;
+    // const minutesString = minutes >= 10 ? minutes : `0${minutes}`;
+    // const secondsString = seconds >= 10 ? seconds : `0${seconds}`;
 
-    setTimeFormated(`${hoursString} : ${minutesString} : ${secondsString}`);
+    // setTimeFormated(`${hoursString} : ${minutesString} : ${secondsString}`);
+    // setTimeFormated(moment(currentTime).format('HH:mm:ss'));
+    let duration = moment.duration(currentTime);
+    let hour = Math.floor(duration.asHours());
+    let minutes = duration.minutes();
+    let seconds     = duration.seconds();
+
+    setTimeFormated(`${hour} : ${minutes} : ${seconds}`);
+    
   }, [currentTime]);
 
   useMemo(() => {

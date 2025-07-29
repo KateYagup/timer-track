@@ -1,13 +1,13 @@
 import React from 'react';
 import Timers from '../timers/Timers';
-import HeaderTablet from '../HeaderTablet/HeaderTablet';
+import Header from '../Header/Header';
 import Footer from '../footer/Footer';
 import './main.scss';
 
 const Main = () => {
   return (
     <div className="main">
-      <HeaderTablet />
+      <Header />
       <Timers />
       <Footer />
     </div>

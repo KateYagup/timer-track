@@ -121,7 +121,7 @@ const Timers = () => {
           onKeyDown={handleKeyPress}
         />
         <button
-          className="button button__orange"
+          className="button button_orange"
           style={{ width: '165px' }}
           onClick={createNewTimer}
         >

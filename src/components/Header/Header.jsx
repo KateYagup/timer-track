@@ -1,7 +1,7 @@
 import React from 'react';
-import './headerTablet.scss';
+import './header.scss';
 
-const HeaderTablet = () => {
+const Header = () => {
   return (
     <div>
       <div className="navPanel">
@@ -12,7 +12,7 @@ const HeaderTablet = () => {
           <a className="navPanel__right-menu">Reviews</a>
           <a className="navPanel__right-menu">Pricing</a>
           <button
-            className="button button__white   navPanel__button"
+            className="button button_white   navPanel__button"
             style={{ width: '132px' }}
           >
             GET IT FREE
@@ -34,7 +34,7 @@ const HeaderTablet = () => {
           </div>
           <div className="buttons">
             <button
-              className="button button__orange"
+              className="button button_orange"
               style={{ width: '167px' }}
             >
               Download Now
@@ -54,4 +54,4 @@ const HeaderTablet = () => {
   );
 };
 
-export default HeaderTablet;
+export default Header;

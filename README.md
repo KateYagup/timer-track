@@ -1,4 +1,4 @@
-# Project Employees-App
+# Project Employees App
 
 ### [Site link](https://timer-tracker-yahup.netlify.app/)
 
