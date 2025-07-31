@@ -47,8 +47,8 @@ const Timer = ({
     // const hoursString = hours >= 10 ? hours : `0${hours}`;
     // const minutesString = minutes >= 10 ? minutes : `0${minutes}`;
     // const secondsString = seconds >= 10 ? seconds : `0${seconds}`;
-
     // setTimeFormated(`${hoursString} : ${minutesString} : ${secondsString}`);
+
     // setTimeFormated(moment(currentTime).format('HH:mm:ss'));
     // let duration = moment.duration(currentTime);
     // let hour = Math.floor(duration.asHours());
@@ -59,9 +59,9 @@ const Timer = ({
     
   }, [currentTime]);
 
-  useMemo(() => {
-    handleStartTime(id, currentTime);
-  }, [currentTime]);
+  // useMemo(() => {
+  //   handleStartTime(id, currentTime);
+  // }, [currentTime]);
 
   return (
     <li className="track">
@@ -74,10 +74,9 @@ const Timer = ({
         }
       >
         {/* {timeFormated} */}
-        {
-        moment.duration(currentTime).seconds()
-   
-    }
+        {/* {`${moment.duration(currentTime).minutes()} :  ${moment.duration(currentTime).seconds()} `  } */}
+        {moment(currentTime).format('HH:mm:ss')}
+        {/* {currentTime} */}
       </span>
       <button
         className={

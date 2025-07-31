@@ -1,24 +1,11 @@
 import React from 'react';
+import Headline from '../Headline/Headline';
 import './header.scss';
 
 const Header = () => {
   return (
     <div>
-      <div className="navPanel">
-        <div className="navPanel__left">AppStarter</div>
-        <div className="navPanel__right">
-          <a className="navPanel__right-menu">Features</a>
-          <a className="navPanel__right-menu">Video Tour</a>
-          <a className="navPanel__right-menu">Reviews</a>
-          <a className="navPanel__right-menu">Pricing</a>
-          <button
-            className="button button_white   navPanel__button"
-            style={{ width: '132px' }}
-          >
-            GET IT FREE
-          </button>
-        </div>
-      </div>
+      <Headline />
       <div className="header">
         <div className="tablet">
           <div className="tablet__logo">
@@ -33,10 +20,7 @@ const Header = () => {
             web and mobile apps
           </div>
           <div className="buttons">
-            <button
-              className="button button_orange"
-              style={{ width: '167px' }}
-            >
+            <button className="button button_orange" style={{ width: '167px' }}>
               Download Now
             </button>
             <button className="button button__white" style={{ width: '144px' }}>
