@@ -50,12 +50,12 @@ const Timer = ({
 
     // setTimeFormated(`${hoursString} : ${minutesString} : ${secondsString}`);
     // setTimeFormated(moment(currentTime).format('HH:mm:ss'));
-    let duration = moment.duration(currentTime);
-    let hour = Math.floor(duration.asHours());
-    let minutes = duration.minutes();
-    let seconds     = duration.seconds();
+    // let duration = moment.duration(currentTime);
+    // let hour = Math.floor(duration.asHours());
+    // let minutes = duration.minutes();
+    // let seconds     = duration.seconds();
 
-    setTimeFormated(`${hour} : ${minutes} : ${seconds}`);
+    // setTimeFormated(`${hour} : ${minutes} : ${seconds}`);
     
   }, [currentTime]);
 
@@ -73,7 +73,11 @@ const Timer = ({
             : 'track__time  track__passive'
         }
       >
-        {timeFormated}
+        {/* {timeFormated} */}
+        {
+        moment.duration(currentTime).seconds()
+   
+    }
       </span>
       <button
         className={

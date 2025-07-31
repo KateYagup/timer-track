@@ -27,24 +27,16 @@ const Timers = () => {
   }, []);
 
   const createNewTimer = () => {
-    let newTimer;
-    if (timerInput) {
-      newTimer = {
-        id: Math.random().toString(36).substr(2, 9),
-        timerName: timerInput,
-        startTime: 0,
-        endTime: 0,
-        pauseTimer: false,
-      };
-    } else {
-      newTimer = {
-        id: Math.random().toString(36).substr(2, 9),
-        endTime: 0,
-        timerName: `From ${moment().format('HH:mm')}`,
-        startTime: 0,
-        pauseTimer: false,
-      };
-    }
+    const id = Math.random().toString(36).substr(2, 9);
+    const timerName = timerInput || `From ${moment().format('HH:mm')}`;
+
+    const newTimer = {
+      id,
+      timerName,
+      startTime: 0,
+      endTime: 0,
+      pauseTimer: false,
+    };
 
     setTimers([...timers, newTimer]);
     setTimerInput('');
@@ -92,11 +84,10 @@ const Timers = () => {
   };
 
   const handleStopTime = (id, stopTime) => {
-    setTimers([
-      ...timers.map((timer) =>
+    setTimers(timers.map((timer) =>
         id === timer.id ? { ...timer, endTime: stopTime } : { ...timer }
       ),
-    ]);
+    );
   };
 
   return (
