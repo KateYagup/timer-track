@@ -1,10 +1,10 @@
 .header {
   position: relative;
   min-height: 848px;
-  background-image: url(/public/images/header/header.jpg);
   object-fit: contain;
   background-repeat: no-repeat;
   padding: 230px 135px 0;
+  background-image: url(/public/images/header/header.jpg);
 
   &__decoration {
     position: absolute;
@@ -20,9 +20,9 @@
     border-radius: 15%;
     width: 90px;
     height: 90px;
-    background-color: #ffffff;
     padding: 5.62px;
     margin-bottom: 33px;
+    background-color: #ffffff;
   }
 
   &__logo-img {
@@ -31,12 +31,12 @@
   }
 
   &__text {
+    margin: 10px 0 37px;
+    color: #fff;
     font-size: 35px;
     font-weight: 300;
     line-height: 50px;
     letter-spacing: 1px;
-    color: #fff;
-    margin: 10px 0 37px;
   }
 }
 

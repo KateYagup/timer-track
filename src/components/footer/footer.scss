@@ -4,13 +4,13 @@
   align-items: center;
   min-height: 110px;
   border-top: 1px solid #e7e8ea;
-  background-color: #fff;
   padding: 0 135px;
+  background-color: #fff;
 
   &__appStarter {
+    color: #282b31;
     font-size: 20px;
     font-weight: 800;
-    color: #282b31;
   }
 
   &__author {
@@ -26,15 +26,15 @@
   }
 
   &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 40px;
     height: 40px;
     top: 1724px;
     left: 1187px;
     border-width: 1px;
     border: 1px solid #e7e8ea;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
 
@@ -49,37 +49,37 @@
 }
 
 .author {
+  color: #999ea8;
   font-weight: 700;
   font-size: 11px;
   line-height: 100%;
   letter-spacing: 0px;
-  color: #999ea8;
 }
 
 .year {
+  color: #999ea8;
   font-family: NunitoSans;
   font-weight: 400;
   font-size: 11px;
   line-height: 100%;
   letter-spacing: 0px;
   text-align: center;
-  color: #999ea8;
 }
 
 .created {
+  color: #999ea8;
   font-weight: 400;
   font-size: 11px;
   line-height: 100%;
   letter-spacing: 0px;
-  color: #999ea8;
 }
 
 .timersNew {
+  color: #282b31;
   font-weight: 700;
   font-size: 11px;
   line-height: 100%;
   letter-spacing: 0px;
-  color: #282b31;
 }
 
 .heart {

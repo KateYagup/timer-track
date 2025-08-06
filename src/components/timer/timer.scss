@@ -5,11 +5,11 @@
   width: 500px;
 
   &__name-text {
+    width: 129px;
     text-align: left;
     font-size: 20px;
     font-weight: 700;
     color: #5586f2;
-    width: 129px;
     text-wrap: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
@@ -22,9 +22,9 @@
     align-items: center;
     width: 117px;
     height: 50px;
+    margin: 0 22px 0 39px;
     border-radius: 6px;
     color: #676c75;
-    margin: 0 22px 0 39px;
   }
 
   &__active {
@@ -50,17 +50,17 @@
 }
 
 .delete {
-  width: 50px;
-  height: 50px;
-  background-image: url(/public/images/control_buttons/deleteBack.svg);
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 50px;
+  height: 50px;
+  background-image: url(/public/images/control_buttons/deleteBack.svg);
 }
 
 .control_button {
-  background-color: transparent;
   border-radius: 50%;
+  background-color: transparent;
 }
 
 .play_button {

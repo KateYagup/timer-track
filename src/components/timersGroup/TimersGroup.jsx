@@ -33,18 +33,18 @@ const TimersGroup = ({ timers, setTimers }) => {
     );
   };
 
-  const handleNewStartTime = (id) => {
-    setTimers([
-      ...timers.map((timer) =>
-        id === timer.id
-          ? {
-              ...timer,
-              startTime: timer.startTime,
-            }
-          : { ...timer }
-      ),
-    ]);
-  };
+  // const handleNewStartTime = (id) => {
+  //   setTimers([
+  //     ...timers.map((timer) =>
+  //       id === timer.id
+  //         ? {
+  //             ...timer,
+  //             startTime: timer.startTime,
+  //           }
+  //         : { ...timer }
+  //     ),
+  //   ]);
+  // };
 
   return (
     <ul className="timers-group">
@@ -55,7 +55,7 @@ const TimersGroup = ({ timers, setTimers }) => {
           removeTimer={removeTimer}
           handleToggle={handleToggle}
           handleStartTime={handleStartTime}
-          handleNewStartTime={handleNewStartTime}
+          // handleNewStartTime={handleNewStartTime}
           handleStopTime={handleStopTime}
         />
       ))}

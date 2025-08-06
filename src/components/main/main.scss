@@ -1,9 +1,14 @@
 .main{
+   /* Positioning */
+  position: relative;
+
+  /* Display & Box Model */
   display: flex;
   flex-direction: column;
   width: 1440px;
   min-height: 100vh;
-  background-color: #f8f9fa;
   margin: 0 auto;
-  position: relative;
+  
+  /* Color */
+  background-color: #f8f9fa;
 }

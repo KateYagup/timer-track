@@ -1,9 +1,9 @@
 .track-zone {
   display: flex;
+  flex-direction: column;
   align-items: center;
   min-height: 841px;
   padding: 0 113px 113px;
-  flex-direction: column;
 }
 
 .timers-group {
@@ -22,47 +22,47 @@
 .inputName {
   width: 305px;
   height: 50px;
-  font-family: NunitoSans;
+  margin-right: 20px;
+  padding-left: 20px;
   font-weight: 400;
   font-size: 17px;
   line-height: 100%;
   letter-spacing: 0px;
-  margin-right: 20px;
-  padding-left: 20px;
+
 }
 
 .separateLine {
   width: 100%;
   height: 1px;
-  background-color: #e7e8ea;
   margin-top: 30px;
   margin-bottom: 13px;
+  background-color: #e7e8ea;
 }
 
 .whyUse {
 margin-top: 153px;
 
   &__header {
+    margin: 0;
+    margin-top: -35px;
+    color: #676c75;
     font-weight: 300;
     font-size: 35px;
     line-height: 50px;
     letter-spacing: 1px;
     text-align: center;
-    color: #676c75;
-    margin: 0;
-    margin-top: -35px;
   }
 
   &__header-bold {
-    font-weight: 800;
     color: #282b31;
+    font-weight: 800;
   }
 
   &__text {
     max-width: 570px;
+    color: #676c75;
     text-align: center;
     font-size: 16px;
     line-height: 30px;
-    color: #676c75;
   }
 }

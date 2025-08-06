@@ -15,12 +15,14 @@ const Timer = ({
 }) => {
   const [currentTime, setCurrentTime] = useState(+startTime);
   const [timeFormated, setTimeFormated] = useState('');
+  const [diff, setDiff] = useState('')
 
   useEffect(() => {
     if (!pauseTimer && currentTime) {
-      const secondsPast = moment().diff(endTime, 'seconds');
+      const secondsPast = moment().diff(moment(endTime), 'seconds');
+      setDiff(secondsPast);
       setCurrentTime(startTime + secondsPast);
-      return;
+      // return;
     }
   }, []);
 
@@ -28,26 +30,28 @@ const Timer = ({
     let intervalId;
     if (pauseTimer) {
       handleStartTime(id, currentTime);
-      return;
+      // return;
     } else if (!pauseTimer) {
       intervalId = setInterval(() => {
         setCurrentTime((t) => t + 1);
+        // handleStopTime(id, moment().format());
       }, 1000);
       handleStopTime(id, moment().format());
     }
     return () => {
       clearInterval(intervalId);
+      // if(!pauseTimer) handleStopTime(id, moment().format());
     };
   }, [pauseTimer]); // useCallBack родительсий элемент
 
   useEffect(() => {
-    // const hours = Math.trunc(currentTime / 3600);
-    // const minutes = Math.trunc((currentTime - hours * 3600) / 60);
-    // const seconds = currentTime - hours * 3600 - minutes * 60;
-    // const hoursString = hours >= 10 ? hours : `0${hours}`;
-    // const minutesString = minutes >= 10 ? minutes : `0${minutes}`;
-    // const secondsString = seconds >= 10 ? seconds : `0${seconds}`;
-    // setTimeFormated(`${hoursString} : ${minutesString} : ${secondsString}`);
+    const hours = Math.trunc(currentTime / 3600);
+    const minutes = Math.trunc((currentTime - hours * 3600) / 60);
+    const seconds = currentTime - hours * 3600 - minutes * 60;
+    const hoursString = hours >= 10 ? hours : `0${hours}`;
+    const minutesString = minutes >= 10 ? minutes : `0${minutes}`;
+    const secondsString = seconds >= 10 ? seconds : `0${seconds}`;
+    setTimeFormated(`${hoursString} : ${minutesString} : ${secondsString}`);
 
     // setTimeFormated(moment(currentTime).format('HH:mm:ss'));
     // let duration = moment.duration(currentTime);
@@ -59,9 +63,9 @@ const Timer = ({
     
   }, [currentTime]);
 
-  // useMemo(() => {
-  //   handleStartTime(id, currentTime);
-  // }, [currentTime]);
+  useMemo(() => {
+    handleStartTime(id, currentTime);
+  }, [currentTime]);
 
   return (
     <li className="track">
@@ -73,11 +77,15 @@ const Timer = ({
             : 'track__time  track__passive'
         }
       >
-        {/* {timeFormated} */}
-        {/* {`${moment.duration(currentTime).minutes()} :  ${moment.duration(currentTime).seconds()} `  } */}
-        {moment(currentTime).format('HH:mm:ss')}
-        {/* {currentTime} */}
+        {/* {`${currentTime} + ${moment().format()} + ${endTime}`} */}
+        {/* {`${moment().format()} + ${endTime}`} */}
+        {/* {`${moment().diff(endTime, 'seconds')}
+         ${startTime}`} */}
+        {/* {moment(currentTime).utc().format('HH:mm:ss')} */}
+        {timeFormated}
       </span>
+      <span>{endTime}</span>
+      <span>{diff}</span>
       <button
         className={
           pauseTimer

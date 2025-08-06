@@ -3,9 +3,9 @@
 }
 
 body {
+  margin: 0;
   font-family: NunitoSans, sans-serif;
   background-color: #e5e5e5;
-  margin: 0;
 }
 
 .boldText {
@@ -14,13 +14,13 @@ body {
 
 .button {
   height: 50px;
-  font-size: 17px;
-  line-height: 20px;
-  letter-spacing: 1px;
   border-radius: 6px;
   border: none;
   box-shadow: 0 6px 12px #282b3114;
   cursor: pointer;
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: 1px;
 
   &_orange {
     background-image: url(/public/images/button/Base.jpg);
