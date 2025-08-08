@@ -15,6 +15,8 @@ const TimersForm = ({ timers, setTimers }) => {
 
     setTimers([...timers, newTimer]);
     setTimerInput('');
+    // localStorage.setItem('timers', timers);
+    // localStorage.setItem('timers', JSON.stringify(timers));
   };
 
   const handleKeyPress = (e) => {
@@ -22,7 +24,7 @@ const TimersForm = ({ timers, setTimers }) => {
       createNewTimer(e);
     }
   };
-  
+
   return (
     <div className="createTimers">
       <input

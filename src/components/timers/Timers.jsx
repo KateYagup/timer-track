@@ -10,8 +10,13 @@ const Timers = () => {
     const storedTimers = localStorage.getItem("timers");
     if(storedTimers){
       setTimers(JSON.parse(storedTimers))
-    }
+    } 
   }, []);
+
+  useEffect(() => {
+    console.log('Запись в сторидж')
+    localStorage.setItem('timers', JSON.stringify(timers));
+  }, [timers]);
 
   const onDelete = (id) => {
     setTimers([...timers.filter((timers) => timers.id !== id)]);
