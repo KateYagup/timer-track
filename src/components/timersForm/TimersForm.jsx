@@ -5,15 +5,12 @@ const TimersForm = ({ timers, setTimers }) => {
   const [timerInput, setTimerInput] = useState('');
 
   const createNewTimer = () => {
-    const id = Math.random().toString(36).substr(2, 9);
-    const timerName = timerInput || `From ${moment().format('HH:mm')}`;
 
     const newTimer = {
-      id,
-      timerName,
-      startTime: 0,
-      endTime: 0,
-      pauseTimer: false,
+      id: Date.now(),
+      title: timerInput || `From ${moment().format('HH:mm')}`,
+      value: 0,
+      isActive: true,
     };
 
     setTimers([...timers, newTimer]);
@@ -25,6 +22,7 @@ const TimersForm = ({ timers, setTimers }) => {
       createNewTimer(e);
     }
   };
+  
   return (
     <div className="createTimers">
       <input

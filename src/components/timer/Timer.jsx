@@ -1,102 +1,76 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import './timer.scss';
 import moment from 'moment';
 
-const Timer = ({
-  id,
-  timerName,
-  startTime,
-  endTime,
-  removeTimer,
-  pauseTimer,
-  handleToggle,
-  handleStartTime,
-  handleStopTime,
-}) => {
-  const [currentTime, setCurrentTime] = useState(+startTime);
-  const [timeFormated, setTimeFormated] = useState('');
-  const [diff, setDiff] = useState('')
+const Timer = ({ initialTimer, setTimers, onToggle, onDelete }) => {
+  const { id, value, isActive, title } = initialTimer;
+  const lastUpdatedDate = 10;
 
   useEffect(() => {
-    if (!pauseTimer && currentTime) {
-      const secondsPast = moment().diff(moment(endTime), 'seconds');
-      setDiff(secondsPast);
-      setCurrentTime(startTime + secondsPast);
-      // return;
+    let intervalId = null;
+    const passedTime = moment().diff(moment(lastUpdatedDate), 'seconds');
+    if (isActive && passedTime) {
+      setTimers((prevState) => ({
+        ...prevState,
+        value: value + passedTime,
+      }));
     }
-  }, []);
-
-  useEffect(() => {
-    let intervalId;
-    if (pauseTimer) {
-      handleStartTime(id, currentTime);
-      // return;
-    } else if (!pauseTimer) {
+    if (isActive) {
       intervalId = setInterval(() => {
-        setCurrentTime((t) => t + 1);
-        // handleStopTime(id, moment().format());
+        setTimers((prevState) => ({
+          ...prevState,
+          value: prevState.value + 1,
+        }));
       }, 1000);
-      handleStopTime(id, moment().format());
     }
     return () => {
-      clearInterval(intervalId);
-      // if(!pauseTimer) handleStopTime(id, moment().format());
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+      localStorage.setItem('closeTime', moment().format('HH:mm:ss'));
     };
-  }, [pauseTimer]); // useCallBack родительсий элемент
+  }, [isActive]);
 
-  useEffect(() => {
-    const hours = Math.trunc(currentTime / 3600);
-    const minutes = Math.trunc((currentTime - hours * 3600) / 60);
-    const seconds = currentTime - hours * 3600 - minutes * 60;
-    const hoursString = hours >= 10 ? hours : `0${hours}`;
-    const minutesString = minutes >= 10 ? minutes : `0${minutes}`;
-    const secondsString = seconds >= 10 ? seconds : `0${seconds}`;
-    setTimeFormated(`${hoursString} : ${minutesString} : ${secondsString}`);
+  // const onDelete = (id) => {
+  //   setTimers([...initialTimer.filter((timers) => timers.id !== id)]);
+  // };
 
-    // setTimeFormated(moment(currentTime).format('HH:mm:ss'));
-    // let duration = moment.duration(currentTime);
-    // let hour = Math.floor(duration.asHours());
-    // let minutes = duration.minutes();
-    // let seconds     = duration.seconds();
-
-    // setTimeFormated(`${hour} : ${minutes} : ${seconds}`);
-    
-  }, [currentTime]);
-
-  useMemo(() => {
-    handleStartTime(id, currentTime);
-  }, [currentTime]);
+  // const onToggle = (id) => {
+  //   setTimers([
+  //     ...initialTimer.map((timer) =>
+  //       id === timer.id
+  //         ? { ...timer, isActive: !timer.isActive }
+  //         : { ...timer }
+  //     ),
+  //   ]);
+  // };
 
   return (
     <li className="track">
-      <p className="track__name-text">{timerName}</p>
+      <p className="track__name-text">{title}</p>
       <span
         className={
-          pauseTimer
+          !isActive
             ? 'track__time   track__active'
             : 'track__time  track__passive'
         }
       >
-        {/* {`${currentTime} + ${moment().format()} + ${endTime}`} */}
-        {/* {`${moment().format()} + ${endTime}`} */}
-        {/* {`${moment().diff(endTime, 'seconds')}
-         ${startTime}`} */}
-        {/* {moment(currentTime).utc().format('HH:mm:ss')} */}
-        {timeFormated}
+        {moment.utc(value * 1000).format('HH:mm:ss')};
       </span>
-      <span>{endTime}</span>
-      <span>{diff}</span>
       <button
         className={
-          pauseTimer
-            ? 'track__button play_button'
-            : 'track__button pause_button'
+          !isActive ? 'track__button play_button' : 'track__button pause_button'
         }
         onClick={() => {
-          handleToggle(id);
+          onToggle(id);
         }}
       ></button>
-      <button className="track__button delete" onClick={() => removeTimer(id)}>
+      <button
+        className="track__button delete"
+        onClick={() => {
+          onDelete(id);
+        }}
+      >
         <img
           className="button-control"
           src="/public/images/control_buttons/deleteIcon.png"

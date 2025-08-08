@@ -1,30 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
-import TimersGroup from '../timersGroup/TimersGroup';
+import React, { useState, useEffect } from 'react';
+import Timer from '../timer/Timer';
 import TimersForm from '../timersForm/TimersForm';
 import './timers.scss';
 
 const Timers = () => {
   const [timers, setTimers] = useState([]);
-  const timersRef = useRef(timers);
-
-  const onUnload = () =>
-    localStorage.setItem('timers', JSON.stringify(timersRef.current));
 
   useEffect(() => {
-    timersRef.current = timers;
-  }, [timers]);
-
-  useEffect(() => {
-    const storedTimers = localStorage.getItem('timers');
-    if (storedTimers) {
-      setTimers(JSON.parse(storedTimers));
+    const storedTimers = localStorage.getItem("timers");
+    if(storedTimers){
+      setTimers(JSON.parse(storedTimers))
     }
-    window.addEventListener('beforeunload', onUnload);
-    return () => {
-      window.removeEventListener('beforeunload', onUnload);
-    };
   }, []);
 
+  const onDelete = (id) => {
+    setTimers([...timers.filter((timers) => timers.id !== id)]);
+  };
+
+  const onToggle = (id) => {
+    setTimers([
+      ...timers.map((timer) =>
+        id === timer.id ? { ...timer, isActive: !timer.isActive } : { ...timer }
+      ),
+    ]);
+  };
+ 
   return (
     <div className="track-zone">
       <div className="whyUse">
@@ -39,7 +39,17 @@ const Timers = () => {
       </div>
       <TimersForm timers={timers} setTimers={setTimers} />
       <div className="separateLine"></div>
-      <TimersGroup timers={timers} setTimers={setTimers} />
+      <ul className="timers-group">
+        {timers.map((initialTimer) => (
+          <Timer
+            key={initialTimer.id}
+            initialTimer={initialTimer}
+            setTimers={setTimers}
+            onDelete={onDelete}
+            onToggle={onToggle}
+          />
+        ))}
+      </ul>
     </div>
   );
 };
