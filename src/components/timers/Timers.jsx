@@ -2,32 +2,54 @@ import React, { useState, useEffect } from 'react';
 import Timer from '../timer/Timer';
 import TimersForm from '../timersForm/TimersForm';
 import './timers.scss';
+import moment from 'moment';
 
 const Timers = () => {
   const [timers, setTimers] = useState([]);
 
   useEffect(() => {
     const storedTimers = localStorage.getItem("timers");
+    console.log(storedTimers);
+    setTimers(JSON.parse(storedTimers));
     if(storedTimers){
       setTimers(JSON.parse(storedTimers))
     } 
   }, []);
 
   useEffect(() => {
-    console.log('Запись в сторидж')
-    localStorage.setItem('timers', JSON.stringify(timers));
-  }, [timers]);
+    const onUnload = ()=>{
+      const updatedTimers = timers.map((timer) =>
+        timers.isActive
+          ? { ...timer, lastUpdatedDate: moment().toISOString() }
+          : timer
+      );
+localStorage.setItem('timers', JSON.stringify(updatedTimers))
+}
+  window.addEventListener('beforeunload', onUnload);
+  return() => {
+    window.removeEventListener('beforeunload', onUnload);
+  }
+  //  console.log('Запись в сторидж')
+  //   localStorage.setItem('timers', JSON.stringify(timers));
+  //   console.log(JSON.parse(localStorage.getItem('timers')));
+  }, [timers]); 
 
   const onDelete = (id) => {
-    setTimers([...timers.filter((timers) => timers.id !== id)]);
+    setTimers(timers.filter((timers) => timers.id !== id));
   };
 
   const onToggle = (id) => {
-    setTimers([
-      ...timers.map((timer) =>
-        id === timer.id ? { ...timer, isActive: !timer.isActive } : { ...timer }
+    setTimers(
+      timers.map((timer) =>
+        id === timer.id 
+      ? { 
+        ...timer, 
+        isActive: !timer.isActive,
+        lastUpdatedDate: timer.isActive ?  null : moment().toISOString
+       } 
+       : { ...timer }
       ),
-    ]);
+    );
   };
  
   return (

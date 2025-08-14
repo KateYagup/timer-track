@@ -11,12 +11,11 @@ const TimersForm = ({ timers, setTimers }) => {
       title: timerInput || `From ${moment().format('HH:mm')}`,
       value: 0,
       isActive: true,
+      lastUpdatedDate: null,
     };
 
     setTimers([...timers, newTimer]);
     setTimerInput('');
-    // localStorage.setItem('timers', timers);
-    // localStorage.setItem('timers', JSON.stringify(timers));
   };
 
   const handleKeyPress = (e) => {
